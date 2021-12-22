@@ -1,4 +1,4 @@
-import { badRequest } from '../../helpers/http/http-helpers'
+import { badRequest, ok } from '../../helpers/http/http-helpers'
 import { HttpRequest, HttpResponse } from '../../helpers/http/http-protocols'
 import { AddPost } from '../../helpers/usecases/add-post'
 import { Validation } from '../../helpers/validators/validation-protocols'
@@ -16,11 +16,11 @@ export class AddPostController implements Controller {
       return badRequest(error)
     }
     const { title, body, tags } = httpRequest.body
-    await this.addPost.add({
+    const post = await this.addPost.add({
       title,
       body,
       tags
     })
-    return null
+    return ok(post)
   }
 }
