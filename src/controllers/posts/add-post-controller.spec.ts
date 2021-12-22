@@ -1,7 +1,25 @@
 import { badRequest } from '../../helpers/http/http-helpers'
 import { HttpRequest } from '../../helpers/http/http-protocols'
+import { AddPost } from '../../helpers/usecases/add-post'
 import { Validation } from '../../helpers/validators/validation-protocols'
+import { AddPostModel, PostModel } from '../../models/posts'
 import { AddPostController } from './add-post-controller'
+
+const makeFakePost = (): PostModel => ({
+  id: 'valid_id',
+  title: 'valid_title',
+  body: 'valid_body',
+  tags: ['valid_tag']
+})
+
+const makeAddPost = (): AddPost => {
+  class AddAccountStub implements AddPost {
+    async add (account: AddPostModel): Promise<PostModel> {
+      return new Promise(resolve => resolve(makeFakePost()))
+    }
+  }
+  return new AddAccountStub()
+}
 
 const makeFakeHttpRequest = (): HttpRequest => ({
   body: {
@@ -24,15 +42,18 @@ const makeValidationStub = (): Validation => {
 interface SutTypes {
   sut: AddPostController
   validationStub: Validation
+  addPostStub: AddPost
 }
 
 const makeSut = (): SutTypes => {
   const validationStub = makeValidationStub()
-  const sut = new AddPostController(validationStub)
+  const addPostStub = makeAddPost()
+  const sut = new AddPostController(validationStub, addPostStub)
 
   return {
     sut,
-    validationStub
+    validationStub,
+    addPostStub
   }
 }
 
@@ -52,5 +73,15 @@ describe('Posts Controller', () => {
     jest.spyOn(validationStub, 'validate').mockReturnValueOnce(new Error('any_error'))
     const httpResponse = await sut.handle(makeFakeHttpRequest())
     expect(httpResponse).toEqual(badRequest(new Error('any_error')))
+  })
+  it('should call AddPost with correct values', async () => {
+    const { sut, addPostStub } = makeSut()
+    const addSpy = jest.spyOn(addPostStub, 'add')
+    await sut.handle(makeFakeHttpRequest())
+    expect(addSpy).toHaveBeenCalledWith({
+      title: 'any_title',
+      body: 'any_body',
+      tags: ['any_tag']
+    })
   })
 })
