@@ -1,3 +1,4 @@
+import { badRequest } from '../../helpers/http/http-helpers'
 import { HttpRequest } from '../../helpers/http/http-protocols'
 import { Validation } from '../../helpers/validators/validation-protocols'
 import { AddPostController } from './add-post-controller'
@@ -45,5 +46,11 @@ describe('Posts Controller', () => {
       body: 'any_body',
       tags: ['any_tag']
     })
+  })
+  it('should return a 400 if validation fails', async () => {
+    const { sut, validationStub } = makeSut()
+    jest.spyOn(validationStub, 'validate').mockReturnValueOnce(new Error('any_error'))
+    const httpResponse = await sut.handle(makeFakeHttpRequest())
+    expect(httpResponse).toEqual(badRequest(new Error('any_error')))
   })
 })
