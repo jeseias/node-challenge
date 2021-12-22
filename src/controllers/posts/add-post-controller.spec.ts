@@ -1,4 +1,4 @@
-import { badRequest } from '../../helpers/http/http-helpers'
+import { badRequest, ok } from '../../helpers/http/http-helpers'
 import { HttpRequest } from '../../helpers/http/http-protocols'
 import { AddPost } from '../../helpers/usecases/add-post'
 import { Validation } from '../../helpers/validators/validation-protocols'
@@ -83,5 +83,10 @@ describe('Posts Controller', () => {
       body: 'any_body',
       tags: ['any_tag']
     })
+  })
+  it('should return 200 if valid data is provided', async () => {
+    const { sut } = makeSut()
+    const httpResponse = await sut.handle(makeFakeHttpRequest())
+    expect(httpResponse).toEqual(ok(makeFakePost()))
   })
 })
