@@ -1,6 +1,6 @@
 import { badRequest, ok } from '../../helpers/http/http-helpers'
 import { HttpRequest, HttpResponse } from '../../helpers/http/http-protocols'
-import { AddPost } from '../../helpers/usecases/add-post'
+import { AddPost } from '../../helpers/protocols/add-post'
 import { Validation } from '../../helpers/validators/validation-protocols'
 import { Controller } from '../controller-protocols'
 
