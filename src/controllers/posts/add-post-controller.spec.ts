@@ -57,7 +57,7 @@ const makeSut = (): SutTypes => {
   }
 }
 
-describe('Posts Controller', () => {
+describe('AddPostController', () => {
   it('should call validate  with correct values', async () => {
     const { sut, validationStub } = makeSut()
     const validateSpy = jest.spyOn(validationStub, 'validate')
