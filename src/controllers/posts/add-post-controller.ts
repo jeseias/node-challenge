@@ -4,6 +4,7 @@ import { HttpRequest, HttpResponse } from '../../helpers/http/http-protocols'
 import { Controller } from '../controller-protocols'
 import { Post } from '../../models/posts'
 import { v4 as uuid } from 'uuid'
+import { map } from '../../helpers/mongo/mongo-helper'
 
 export class AddPostController implements Controller {
   async handle (httpRequest: HttpRequest): Promise<HttpResponse> {
@@ -22,13 +23,7 @@ export class AddPostController implements Controller {
         tags
       })
       const post = posts[0]
-      const mappedPost = Object.assign(
-        {}, {
-          id: post._id,
-          title: post.title,
-          body: post.body,
-          tags: post.tags
-        })
+      const mappedPost = map(post)
       return ok(mappedPost)
     } catch (error) {
       return serverError(error)
