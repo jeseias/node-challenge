@@ -11,7 +11,7 @@ const app = express()
 app.use(cors())
 app.use(express.json())
 
-app.use('/api/v1/posts', postRoutes)
+app.use('/api/posts', postRoutes)
 
 dotenv.config({ path: path.resolve(__dirname, '..', '.config.env') })
 const PORT = process.env.PORT || 3333
