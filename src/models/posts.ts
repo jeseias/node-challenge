@@ -1,3 +1,5 @@
+import { model, Schema } from 'mongoose'
+
 export interface PostModel {
   id: string
   title: string
@@ -10,3 +12,12 @@ export interface AddPostModel {
   body: string
   tags: string[]
 }
+
+const PostSchema = new Schema({
+  _id: String,
+  title: String,
+  body: String,
+  tags: [String]
+})
+
+export const Post = model('Post', PostSchema)
