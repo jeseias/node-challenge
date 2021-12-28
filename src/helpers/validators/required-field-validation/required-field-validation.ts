@@ -1,12 +1,10 @@
-import { MissingParamError } from '@/helpers/errors/missing-param-error'
-import { Validation } from './validation-protocols'
+import { MissingParamError } from '@/helpers/errors'
+import { Validation } from '../validation-protocols'
 
 export class RequiredFieldValidation implements Validation {
   constructor (
     private readonly fieldName: string
-  ) {
-
-  }
+  ) { }
 
   validate (input: any): Error {
     if (!input[this.fieldName]) {

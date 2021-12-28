@@ -5,7 +5,7 @@ import dotenv from 'dotenv'
 import path from 'path'
 import swaggerJsDocs from 'swagger-jsdoc'
 import swaggerUi from 'swagger-ui-express'
-import { postRoutes } from '@/routes/api/post'
+import { postRoutes } from '@/models/api/post'
 import { swaggerOptions } from '@/helpers/docs/swagger-options'
 
 const app = express()
