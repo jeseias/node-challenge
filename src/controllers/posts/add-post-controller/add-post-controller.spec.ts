@@ -2,6 +2,7 @@ import { MissingParamError } from '@/helpers/errors/missing-param-error'
 import { badRequest, ok, serverError } from '@/helpers/http/http-helpers'
 import { HttpRequest } from '@/helpers/http/http-protocols'
 import { AddPost } from '@/helpers/protocols/add-post'
+import { Validation } from '@/helpers/validators/validation-protocols'
 import { PostModel, AddPostModel } from '@/models/posts'
 import { AddPostController } from './add-post-controller'
 
@@ -29,17 +30,30 @@ const makeAddPost = (): AddPost => {
   return new AddPostSpy()
 }
 
+const makeValidation = (): Validation => {
+  class ValidationSpy implements Validation {
+    validate (input: any): Error {
+      return null
+    }
+  }
+
+  return new ValidationSpy()
+}
+
 interface SutTypes {
   sut: AddPostController
-  addPost: AddPost
+  addPostSpy: AddPost
+  validationSpy: Validation
 }
 
 const makeSut = (): SutTypes => {
-  const addPost = makeAddPost()
-  const sut = new AddPostController(addPost)
+  const addPostSpy = makeAddPost()
+  const validationSpy = makeValidation()
+  const sut = new AddPostController(addPostSpy, validationSpy)
   return {
     sut,
-    addPost
+    addPostSpy,
+    validationSpy
   }
 }
 
@@ -77,9 +91,17 @@ describe('AddPostController', () => {
     expect(httpResponse).toEqual(badRequest(new MissingParamError('body')))
   })
 
+  it('Should call Validation with correct values', async () => {
+    const { sut, validationSpy } = makeSut()
+    const validateSpy = jest.spyOn(validationSpy, 'validate')
+    const httpRequest = makeFakeHttpRequest()
+    await sut.handle(httpRequest)
+    expect(validateSpy).toHaveBeenCalledWith(httpRequest.body)
+  })
+
   it('Should throw if AddPost throws', async () => {
-    const { sut, addPost } = makeSut()
-    jest.spyOn(addPost, 'add').mockImplementationOnce(async => {
+    const { sut, addPostSpy } = makeSut()
+    jest.spyOn(addPostSpy, 'add').mockImplementationOnce(async => {
       throw new Error('any_error')
     })
     const httpResponse = await sut.handle(makeFakeHttpRequest())
@@ -87,8 +109,8 @@ describe('AddPostController', () => {
   })
 
   it('Should call AddPost with correct values', async () => {
-    const { sut, addPost } = makeSut()
-    const addSpy = jest.spyOn(addPost, 'add')
+    const { sut, addPostSpy } = makeSut()
+    const addSpy = jest.spyOn(addPostSpy, 'add')
     await sut.handle(makeFakeHttpRequest())
     expect(addSpy).toHaveBeenCalledWith({
       title: 'any_title',
