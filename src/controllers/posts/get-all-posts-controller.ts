@@ -8,8 +8,8 @@ export class GetAllPostController implements Controller {
   async handle (httpRequest: HttpRequest): Promise<HttpResponse> {
     try {
       const { query } = httpRequest
-      const limit = parseInt(query.limit)
-      const page = parseInt(query.page)
+      const limit = parseInt(query.limit || 3)
+      const page = parseInt(query.page || 1)
       const queryString = Post.find().skip((page - 1) * limit).limit(limit)
       const posts = await queryString
       const mappedPosts = posts.map(post => map(post))
