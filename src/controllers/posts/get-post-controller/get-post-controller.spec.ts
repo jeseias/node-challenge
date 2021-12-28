@@ -63,7 +63,7 @@ describe('GetPostController', () => {
 
   it('Should return 400 if no Post is found with that id', async () => {
     const { sut, loadPostByIdSpy } = makeSut()
-    jest.spyOn(loadPostByIdSpy, 'loadOne').mockReturnValueOnce(null)
+    jest.spyOn(loadPostByIdSpy, 'loadOne').mockReturnValueOnce(null as any)
     const httpResponse =  await sut.handle(makeFakeHttpRequest())
     expect(httpResponse).toEqual(badRequest(new Error('Post not found')))
   })
