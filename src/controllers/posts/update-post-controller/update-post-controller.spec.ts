@@ -3,8 +3,8 @@ import { HttpRequest } from '@/helpers/http/http-protocols'
 import { UpdatePostById } from '@/helpers/protocols/update-post-by-id'
 import { Validation } from '@/helpers/validators/validation-protocols'
 import { AddPostModel, PostModel } from '@/models/posts'
-import { makeFakePost } from '../__tests__/mock-post'
-import { makeValidation } from '../__tests__/mock-validation'
+import { makeFakePost } from '../__mocks__/mock-post'
+import { makeValidation } from '../__mocks__/mock-validation'
 import { UpdatePostController } from './update-post-controller'
 
 const makeFakeHttpRequest = (): HttpRequest => ({

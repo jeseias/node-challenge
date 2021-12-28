@@ -5,8 +5,8 @@ import { Validation } from '@/helpers/validators/validation-protocols'
 import { PostModel, AddPostModel } from '@/models/posts'
 import { AddPostController } from './add-post-controller'
 
-import { makeFakePost } from '../__tests__/mock-post'
-import { makeValidation } from '../__tests__/mock-validation'
+import { makeFakePost } from '../__mocks__/mock-post'
+import { makeValidation } from '../__mocks__/mock-validation'
 
 const makeFakeHttpRequest = (): HttpRequest => ({
   body: {
