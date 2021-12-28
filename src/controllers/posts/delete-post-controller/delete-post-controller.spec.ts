@@ -1,6 +1,6 @@
 import { badRequest } from '@/helpers/http/http-helpers'
 import { HttpRequest } from '@/helpers/http/http-protocols'
-import { LoadPostById } from '@/helpers/protocols/load-post-by-id'
+import { RemovePostById } from '@/helpers/protocols/remove-post-by-id'
 import { Validation } from '@/helpers/validators/validation-protocols'
 import { PostModel } from '@/models/posts'
 import { makeFakePost } from '../__tests__/mock-post'
@@ -11,29 +11,29 @@ const makeFakeHttpRequest = (): HttpRequest => ({
   params: { id: 'any_id' }
 })
 
-const makeLoadPostById = (): LoadPostById => {
-  class LoadPostByIdSpy implements LoadPostById {
-    async load (id: string): Promise<PostModel> {
+const makeRemovePostById = (): RemovePostById => {
+  class RemovePostByIdSpy implements RemovePostById {
+    async remove (id: string): Promise<PostModel> {
       return makeFakePost()
     }
   }
 
-  return new LoadPostByIdSpy()
+  return new RemovePostByIdSpy()
 }
 
 interface SutTypes {
   sut: DeletePostController
-  loadPostByIdSpy: LoadPostById
+  removePostByIdSpy: RemovePostById
   validationSpy: Validation
 }
 
 const makeSut = (): SutTypes => {
   const validationSpy = makeValidation()
-  const loadPostByIdSpy = makeLoadPostById()
-  const sut = new DeletePostController(loadPostByIdSpy, validationSpy)
+  const removePostByIdSpy = makeRemovePostById()
+  const sut = new DeletePostController(removePostByIdSpy, validationSpy)
   return {
     sut,
-    loadPostByIdSpy,
+    removePostByIdSpy,
     validationSpy
   }
 }
@@ -55,15 +55,15 @@ describe('DeletePostController', () => {
   })
 
   it('Should call LoadPostById with correct id', async () => {
-    const { sut, loadPostByIdSpy } = makeSut()
-    const loadSpy = jest.spyOn(loadPostByIdSpy, 'load')
+    const { sut, removePostByIdSpy } = makeSut()
+    const removeSpy = jest.spyOn(removePostByIdSpy, 'remove')
     await sut.handle(makeFakeHttpRequest())
-    expect(loadSpy).toHaveBeenCalledWith('any_id')
+    expect(removeSpy).toHaveBeenCalledWith('any_id')
   })
 
   it('Should return 400 if no Post is found with that id', async () => {
-    const { sut, loadPostByIdSpy } = makeSut()
-    jest.spyOn(loadPostByIdSpy, 'load').mockReturnValueOnce(null)
+    const { sut, removePostByIdSpy } = makeSut()
+    jest.spyOn(removePostByIdSpy, 'remove').mockReturnValueOnce(null)
     const httpResponse =  await sut.handle(makeFakeHttpRequest())
     expect(httpResponse).toEqual(badRequest(new Error('Post not found')))
   })

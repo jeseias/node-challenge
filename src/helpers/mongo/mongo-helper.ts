@@ -19,3 +19,6 @@ export const map = (post: any): PostModel => {
 // })
 // const post = posts[0]
 // const mappedPost = MongoHelper.map(post)
+
+// const queryString = Post.find().skip((page - 1) * limit).limit(limit)
+// const posts = await queryString
