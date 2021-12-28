@@ -11,3 +11,11 @@ export const map = (post: any): PostModel => {
 
   return mappedPost
 }
+// const posts = await Post.insertMany({
+//   _id: uuid(),
+//   title,
+//   body,
+//   tags
+// })
+// const post = posts[0]
+// const mappedPost = MongoHelper.map(post)

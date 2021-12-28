@@ -1,12 +1,14 @@
 import { MissingParamError } from '@/helpers/errors/missing-param-error'
 import { badRequest, ok, serverError } from '@/helpers/http/http-helpers'
 import { HttpRequest, HttpResponse } from '@/helpers/http/http-protocols'
-import * as MongoHelper from '@/helpers/mongo/mongo-helper'
 import { Controller } from '@/controllers/controller-protocols'
-import { Post } from '@/models/posts'
-import { v4 as uuid } from 'uuid'
+import { AddPost } from '@/helpers/protocols/add-post'
 
 export class AddPostController implements Controller {
+  constructor (
+    private readonly addPost: AddPost
+  ) {}
+
   async handle (httpRequest: HttpRequest): Promise<HttpResponse> {
     try {
       const requiredFields = ['title', 'body', 'tags']
@@ -16,15 +18,12 @@ export class AddPostController implements Controller {
         }
       }
       const { title, body, tags } = httpRequest.body
-      const posts = await Post.insertMany({
-        _id: uuid(),
+      const post = await this.addPost.add({
         title,
         body,
         tags
       })
-      const post = posts[0]
-      const mappedPost = MongoHelper.map(post)
-      return ok(mappedPost)
+      return ok(post)
     } catch (error) {
       return serverError(error)
     }
