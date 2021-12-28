@@ -5,7 +5,7 @@ import { Validation } from '@/helpers/validators/validation-protocols'
 import { PostModel } from '@/models/posts'
 import { makeFakePost } from '../__tests__/mock-post'
 import { makeValidation } from '../__tests__/mock-validation'
-import { DeletePostController } from './delete-post-controller'
+import { GetPostController } from './get-post-controller'
 
 const makeFakeHttpRequest = (): HttpRequest => ({
   params: { id: 'any_id' }
@@ -22,7 +22,7 @@ const makeLoadPostById = (): LoadPostById => {
 }
 
 interface SutTypes {
-  sut: DeletePostController
+  sut: GetPostController
   loadPostByIdSpy: LoadPostById
   validationSpy: Validation
 }
@@ -30,7 +30,7 @@ interface SutTypes {
 const makeSut = (): SutTypes => {
   const validationSpy = makeValidation()
   const loadPostByIdSpy = makeLoadPostById()
-  const sut = new DeletePostController(loadPostByIdSpy, validationSpy)
+  const sut = new GetPostController(loadPostByIdSpy, validationSpy)
   return {
     sut,
     loadPostByIdSpy,
@@ -38,7 +38,7 @@ const makeSut = (): SutTypes => {
   }
 }
 
-describe('DeletePostController', () => { 
+describe('GetPostController', () => { 
   it('Should call Validation with correct values', async () => {
     const { sut, validationSpy } = makeSut()
     const validateSpy = jest.spyOn(validationSpy, 'validate')
