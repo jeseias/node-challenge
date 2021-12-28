@@ -4,12 +4,18 @@ import { postRoutes } from './routes/api/post'
 import mongoose from 'mongoose'
 import dotenv from 'dotenv'
 import path from 'path'
+import swaggerJsDocs from 'swagger-jsdoc'
+import swaggerUi from 'swagger-ui-express'
+import { swaggerOptions } from './helpers/docs/swagger-options'
 
 const app = express()
 
 // Middlewares
 app.use(cors())
 app.use(express.json())
+
+const swaggerDocs = swaggerJsDocs(swaggerOptions)
+app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs))
 
 app.use('/api/posts', postRoutes)
 

@@ -9,6 +9,7 @@ import { map } from '../../helpers/mongo/mongo-helper'
 export class AddPostController implements Controller {
   async handle (httpRequest: HttpRequest): Promise<HttpResponse> {
     try {
+      console.log(httpRequest.body)
       const requiredFields = ['title', 'body', 'tags']
       for (const field of requiredFields) {
         if (!httpRequest.body[field]) {
