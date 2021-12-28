@@ -1,4 +1,3 @@
-import { MissingParamError } from '@/helpers/errors/missing-param-error'
 import { badRequest, ok, serverError } from '@/helpers/http/http-helpers'
 import { HttpRequest } from '@/helpers/http/http-protocols'
 import { AddPost } from '@/helpers/protocols/add-post'
@@ -58,45 +57,11 @@ const makeSut = (): SutTypes => {
 }
 
 describe('AddPostController', () => {
-  it('should return a MissingParamError if title is not provided', async () => {
-    const { sut } = makeSut()
-    const httpResponse = await sut.handle({
-      body: {
-        body: 'any_body',
-        tags: ['any_tag']
-      }
-    })
-    expect(httpResponse).toEqual(badRequest(new MissingParamError('title')))
-  })
-
-  it('should return a MissingParamError if tags is not provided', async () => {
-    const { sut } = makeSut()
-    const httpResponse = await sut.handle({
-      body: {
-        body: 'any_body',
-        title: 'any_title'
-      }
-    })
-    expect(httpResponse).toEqual(badRequest(new MissingParamError('tags')))
-  })
-
-  it('should return a MissingParamError if body is not provided', async () => {
-    const { sut } = makeSut()
-    const httpResponse = await sut.handle({
-      body: {
-        title: 'any_title',
-        tags: ['any_tag']
-      }
-    })
-    expect(httpResponse).toEqual(badRequest(new MissingParamError('body')))
-  })
-
-  it('Should call Validation with correct values', async () => {
+  it('Should return 400 bad request if Validation fails', async () => {
     const { sut, validationSpy } = makeSut()
-    const validateSpy = jest.spyOn(validationSpy, 'validate')
-    const httpRequest = makeFakeHttpRequest()
-    await sut.handle(httpRequest)
-    expect(validateSpy).toHaveBeenCalledWith(httpRequest.body)
+    jest.spyOn(validationSpy, 'validate').mockReturnValueOnce(new Error('any_error'))
+    const httpResponse = await sut.handle(makeFakeHttpRequest())
+    expect(httpResponse).toEqual(badRequest(new Error('any_error')))
   })
 
   it('Should throw if AddPost throws', async () => {
