@@ -6,7 +6,7 @@ import dotenv from 'dotenv'
 import path from 'path'
 import swaggerJsDocs from 'swagger-jsdoc'
 import swaggerUi from 'swagger-ui-express'
-import { swaggerOptions } from './helpers/docs/swagger-options'
+import { swaggerOptions } from '@/helpers/docs/swagger-options'
 
 const app = express()
 

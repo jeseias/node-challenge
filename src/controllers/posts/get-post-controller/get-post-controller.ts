@@ -1,8 +1,8 @@
-import { serverError, ok, badRequest } from '../../helpers/http/http-helpers'
-import { HttpRequest, HttpResponse } from '../../helpers/http/http-protocols'
-import { Controller } from '../controller-protocols'
-import { Post } from '../../models/posts'
-import { map } from '../../helpers/mongo/mongo-helper'
+import { serverError, ok, badRequest } from '@/helpers/http/http-helpers'
+import { HttpRequest, HttpResponse } from '@/helpers/http/http-protocols'
+import { Controller } from '@/controllers/controller-protocols'
+import { Post } from '@/models/posts'
+import * as MongoHelper from '@/helpers/mongo/mongo-helper'
 
 export class GetPostController implements Controller {
   async handle (httpRequest: HttpRequest): Promise<HttpResponse> {
@@ -12,7 +12,7 @@ export class GetPostController implements Controller {
       if (!post[0]) {
         return badRequest(new Error('Document not found'))
       }
-      const mappedPost = map(post[0])
+      const mappedPost = MongoHelper.map(post[0])
       return ok(mappedPost)
     } catch (error) {
       return serverError(error)

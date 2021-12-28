@@ -1,4 +1,4 @@
-import { PostModel } from '../../models/posts'
+import { PostModel } from '@/models/posts'
 
 export const map = (post: any): PostModel => {
   const mappedPost = Object.assign(

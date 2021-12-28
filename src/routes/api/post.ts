@@ -4,7 +4,7 @@ import { DeletePostController } from '@/controllers/posts/delete-post-controller
 import { GetPostsController } from '@/controllers/posts/get-posts-controller/get-posts-controller'
 import { GetPostController } from '@/controllers/posts/get-post-controller/get-post-controller'
 import { UpdatePostController } from '@/controllers/posts/update-post-controller/update-post-controller'
-import { adaptRoute } from '../../helpers/express/express-route-adapter'
+import { adaptRoute } from '@/helpers/express/express-route-adapter'
 
 const postRoutes = Router()
 

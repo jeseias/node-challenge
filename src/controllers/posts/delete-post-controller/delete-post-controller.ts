@@ -1,7 +1,7 @@
-import { serverError, ok, badRequest } from '../../helpers/http/http-helpers'
-import { HttpRequest, HttpResponse } from '../../helpers/http/http-protocols'
-import { Controller } from '../controller-protocols'
-import { Post } from '../../models/posts'
+import { serverError, ok, badRequest } from '@/helpers/http/http-helpers'
+import { HttpRequest, HttpResponse } from '@/helpers/http/http-protocols'
+import { Controller } from '@/controllers/controller-protocols'
+import { Post } from '@/models/posts'
 
 export class DeletePostController implements Controller {
   async handle (httpRequest: HttpRequest): Promise<HttpResponse> {
