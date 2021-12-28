@@ -1,8 +1,8 @@
-import { badRequest, ok, serverError } from '@/helpers/http/http-helpers'
-import { HttpRequest, HttpResponse } from '@/helpers/http/http-protocols'
-import { Controller } from '@/controllers/controller-protocols'
-import { AddPost } from '@/helpers/protocols/add-post'
-import { Validation } from '@/helpers/validators/validation-protocols'
+import { badRequest, ok, serverError } from '../../../helpers/http/http-helpers'
+import { HttpRequest, HttpResponse } from '../../../helpers/http/http-protocols'
+import { Controller } from '../../../controllers/controller-protocols'
+import { AddPost } from '../../../helpers/protocols/add-post'
+import { Validation } from '../../../helpers/validators/validation-protocols'
 
 export class AddPostController implements Controller {
   constructor (

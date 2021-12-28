@@ -1,8 +1,8 @@
-import { badRequest, ok, serverError } from '@/helpers/http/http-helpers'
-import { HttpRequest } from '@/helpers/http/http-protocols'
-import { AddPost } from '@/helpers/protocols/add-post'
-import { Validation } from '@/helpers/validators/validation-protocols'
-import { PostModel, AddPostModel } from '@/models/posts'
+import { badRequest, ok, serverError } from '../../../helpers/http/http-helpers'
+import { HttpRequest } from '../../../helpers/http/http-protocols'
+import { AddPost } from '../../../helpers/protocols/add-post'
+import { Validation } from '../../../helpers/validators/validation-protocols'
+import { PostModel, AddPostModel } from '../../../models/posts'
 import { AddPostController } from './add-post-controller'
 
 import { makeFakePost } from '../__mocks__/mock-post'

@@ -5,8 +5,8 @@ import dotenv from 'dotenv'
 import path from 'path'
 import swaggerJsDocs from 'swagger-jsdoc'
 import swaggerUi from 'swagger-ui-express'
-import { postRoutes } from './routes/api/post'
 import { swaggerOptions } from './helpers/docs/swagger-options'
+import { postRoutes } from './routes/api/post'
 
 const app = express()
 
@@ -22,11 +22,10 @@ app.use('/api/posts', postRoutes)
 dotenv.config({ path: path.resolve(__dirname, '..', '.config.env') })
 const PORT = process.env.PORT || 3333
 
-mongoose.connect(process.env.DATABASE_URL)
+mongoose.connect(process.env.DATABASE_URL as string)
   .then(() => console.log('Connection to database is a success'))
   .catch((err) => console.log('Error connecting to database', err))
 
 app.listen(PORT, () => {
   console.log(`server running on PORT: ${PORT}`)
 })
-postRoutes

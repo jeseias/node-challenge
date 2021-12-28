@@ -1,5 +1,5 @@
-import { makeValidation } from '@/controllers/posts/__mocks__/mock-validation'
-import { MissingParamError } from '@/helpers/errors'
+import { makeValidation } from '../../../controllers/posts/__mocks__/mock-validation'
+import { MissingParamError } from '../../../helpers/errors'
 import { Validation } from '../validation-protocols'
 import { ValidationComposite } from './validation-composite'
 

@@ -1,8 +1,8 @@
-import { serverError, ok, badRequest } from '@/helpers/http/http-helpers'
-import { HttpRequest, HttpResponse } from '@/helpers/http/http-protocols'
-import { Controller } from '@/controllers/controller-protocols'
-import { Validation } from '@/helpers/validators/validation-protocols'
-import { LoadPostById } from '@/helpers/protocols/load-post-by-id'
+import { serverError, ok, badRequest } from '../../../helpers/http/http-helpers'
+import { HttpRequest, HttpResponse } from '../../../helpers/http/http-protocols'
+import { Controller } from '../../../controllers/controller-protocols'
+import { Validation } from '../../../helpers/validators/validation-protocols'
+import { LoadPostById } from '../../../helpers/protocols/load-post-by-id'
 
 export class GetPostController implements Controller {
   constructor (

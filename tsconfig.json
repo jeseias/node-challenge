@@ -1,15 +1,36 @@
 {
   "compilerOptions": {
+    "target": "es6",                         
+    "module": "commonjs",                    
+    "strict": false,                          
+    "skipLibCheck": true,                    
+    "forceConsistentCasingInFileNames": true,
     "outDir": "./dist",
-    "module": "CommonJS",
-    "target": "es2019",
+    "noImplicitAny": true,
+    "rootDir": "./src",
     "esModuleInterop": true,
-    "allowJs": true,
-    "rootDirs": ["src"],
-    "baseUrl": "./src",
+    "lib": [
+      "esnext",
+      "dom"
+    ],
+    "moduleResolution": "node",
+    "baseUrl": ".",
     "paths": {
       "@/*": ["*"],
-    }
+      "@test/*": ["./src/modules/test/*"],
+      "@test": ["./src/modules/test/index.ts"],
+      "@lib": ["./src/modules/lib/index.ts"],
+      "@constants": ["./src/modules/constants/index.ts"],
+      "@typescript": ["./src/modules/typescript/index.ts"],
+      "@use-cases": ["./src/modules/use-cases/index.ts"],
+      "@environment": ["./src/modules/environment.ts"]
+    },
   },
-  "include": ["src"]
+  "include": [
+    "src"
+  ],
+  "exclude": [
+    "**/*.spec.ts",
+    "**/*.test.ts"
+  ],
 }

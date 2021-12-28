@@ -1,4 +1,4 @@
-import { PostModel } from "@/models/posts";
+import { PostModel } from "../../../models/posts";
 
 export const makeFakePost = (): PostModel => ({
   id: 'any_id',

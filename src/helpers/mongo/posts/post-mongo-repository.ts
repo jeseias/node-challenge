@@ -1,9 +1,9 @@
-import { AddPost } from "@/helpers/protocols/add-post";
-import { LoadPostById } from "@/helpers/protocols/load-post-by-id";
-import { RemovePostById } from "@/helpers/protocols/remove-post-by-id";
-import { UpdatePostById } from "@/helpers/protocols/update-post-by-id";
-import { LoadPosts } from "@/helpers/protocols/load-posts";
-import { AddPostModel, PostModel, Post } from "@/models/posts";
+import { AddPost } from '../../protocols/add-post';
+import { LoadPostById } from "../../protocols/load-post-by-id";
+import { RemovePostById } from "../../protocols/remove-post-by-id";
+import { UpdatePostById } from "../../protocols/update-post-by-id";
+import { LoadPosts } from "../../protocols/load-posts";
+import { AddPostModel, PostModel, Post } from '../../../models/posts';
 import {v4 as uuid} from 'uuid'
 import * as MongoHelper from '../mongo-helper'
 
@@ -44,6 +44,7 @@ export class PostMongoRepository implements AddPost, LoadPosts, LoadPostById, Up
   }
 
   async remove(id: string): Promise<PostModel> {
+    console.log(id)
     const post = await Post.findByIdAndRemove(
       { _id: id },
       { new: true }
