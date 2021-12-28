@@ -4,7 +4,7 @@ import { Controller } from '../controller-protocols'
 import { Post } from '../../models/posts'
 import { map } from '../../helpers/mongo/mongo-helper'
 
-export class UpdateOnePostController implements Controller {
+export class UpdatePostController implements Controller {
   async handle (httpRequest: HttpRequest): Promise<HttpResponse> {
     try {
       const { id } = httpRequest.params

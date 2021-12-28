@@ -1,21 +1,6 @@
-import { MissingParamError } from '../../helpers/errors/missing-param-error'
-import { badRequest } from '../../helpers/http/http-helpers'
+import { MissingParamError } from '@/helpers/errors/missing-param-error'
+import { badRequest } from '@/helpers/http/http-helpers'
 import { AddPostController } from './add-post-controller'
-
-// const makeFakePost = (): PostModel => ({
-//   id: 'valid_id',
-//   title: 'valid_title',
-//   body: 'valid_body',
-//   tags: ['valid_tag']
-// })
-
-// const makeFakeHttpRequest = (): HttpRequest => ({
-//   body: {
-//     title: 'any_title',
-//     body: 'any_body',
-//     tags: ['any_tag']
-//   }
-// })
 
 const makeSut = (): AddPostController => {
   return new AddPostController()

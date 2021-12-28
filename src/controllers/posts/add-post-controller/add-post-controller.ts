@@ -1,15 +1,14 @@
-import { MissingParamError } from '../../helpers/errors/missing-param-error'
-import { badRequest, serverError, ok } from '../../helpers/http/http-helpers'
-import { HttpRequest, HttpResponse } from '../../helpers/http/http-protocols'
-import { Controller } from '../controller-protocols'
-import { Post } from '../../models/posts'
+import { MissingParamError } from '@/helpers/errors/missing-param-error'
+import { badRequest, ok, serverError } from '@/helpers/http/http-helpers'
+import { HttpRequest, HttpResponse } from '@/helpers/http/http-protocols'
+import * as MongoHelper from '@/helpers/mongo/mongo-helper'
+import { Controller } from '@/controllers/controller-protocols'
+import { Post } from '@/models/posts'
 import { v4 as uuid } from 'uuid'
-import { map } from '../../helpers/mongo/mongo-helper'
 
 export class AddPostController implements Controller {
   async handle (httpRequest: HttpRequest): Promise<HttpResponse> {
     try {
-      console.log(httpRequest.body)
       const requiredFields = ['title', 'body', 'tags']
       for (const field of requiredFields) {
         if (!httpRequest.body[field]) {
@@ -24,7 +23,7 @@ export class AddPostController implements Controller {
         tags
       })
       const post = posts[0]
-      const mappedPost = map(post)
+      const mappedPost = MongoHelper.map(post)
       return ok(mappedPost)
     } catch (error) {
       return serverError(error)

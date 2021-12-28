@@ -4,7 +4,7 @@ import { Controller } from '../controller-protocols'
 import { Post } from '../../models/posts'
 import { map } from '../../helpers/mongo/mongo-helper'
 
-export class GetAllPostController implements Controller {
+export class GetPostsController implements Controller {
   async handle (httpRequest: HttpRequest): Promise<HttpResponse> {
     try {
       const { query } = httpRequest
