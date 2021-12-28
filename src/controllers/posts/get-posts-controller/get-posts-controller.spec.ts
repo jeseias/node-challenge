@@ -13,7 +13,7 @@ const makeFakeHttpRequest = (): HttpRequest => ({
 
 const makeLoadPosts = (): LoadPosts => {
   class LoadPostsSpy implements LoadPosts {
-    async load (limit: number, page: number): Promise<PostModel[]> {
+    async loadAll (limit: number, page: number): Promise<PostModel[]> {
       return [makeFakePost()]
     }
   }
@@ -56,14 +56,14 @@ describe('GetPostsController', () => {
 
   it('Should call LoadPosts with correct values', async () => {
     const { sut, loadPostsSpy } = makeSut()
-    const loadSpy = jest.spyOn(loadPostsSpy, 'load')
+    const loadSpy = jest.spyOn(loadPostsSpy, 'loadAll')
     await sut.handle(makeFakeHttpRequest())
     expect(loadSpy).toHaveBeenCalledWith(2,2)
   })
 
   it('Should default limit to 3 and page to 1 if they are not provided', async () => {
     const { sut, loadPostsSpy } = makeSut()
-    const loadSpy = jest.spyOn(loadPostsSpy, 'load')
+    const loadSpy = jest.spyOn(loadPostsSpy, 'loadAll')
     await sut.handle({ query: { } })
     expect(loadSpy).toHaveBeenCalledWith(3,1)
   })

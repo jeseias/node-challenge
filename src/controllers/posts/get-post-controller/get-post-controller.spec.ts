@@ -13,7 +13,7 @@ const makeFakeHttpRequest = (): HttpRequest => ({
 
 const makeLoadPostById = (): LoadPostById => {
   class LoadPostByIdSpy implements LoadPostById {
-    async load (id: string): Promise<PostModel> {
+    async loadOne (id: string): Promise<PostModel> {
       return makeFakePost()
     }
   }
@@ -56,14 +56,14 @@ describe('GetPostController', () => {
 
   it('Should call LoadPostById with correct id', async () => {
     const { sut, loadPostByIdSpy } = makeSut()
-    const loadSpy = jest.spyOn(loadPostByIdSpy, 'load')
+    const loadSpy = jest.spyOn(loadPostByIdSpy, 'loadOne')
     await sut.handle(makeFakeHttpRequest())
     expect(loadSpy).toHaveBeenCalledWith('any_id')
   })
 
   it('Should return 400 if no Post is found with that id', async () => {
     const { sut, loadPostByIdSpy } = makeSut()
-    jest.spyOn(loadPostByIdSpy, 'load').mockReturnValueOnce(null)
+    jest.spyOn(loadPostByIdSpy, 'loadOne').mockReturnValueOnce(null)
     const httpResponse =  await sut.handle(makeFakeHttpRequest())
     expect(httpResponse).toEqual(badRequest(new Error('Post not found')))
   })

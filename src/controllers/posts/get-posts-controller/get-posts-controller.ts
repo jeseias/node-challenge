@@ -18,7 +18,7 @@ export class GetPostsController implements Controller {
       const { query } = httpRequest
       const limit = parseInt(query.limit || 3)
       const page = parseInt(query.page || 1)
-      const posts = await this.loadPosts.load(limit, page)
+      const posts = await this.loadPosts.loadAll(limit, page)
       return ok(posts)
     } catch (error) {
       return serverError(error)

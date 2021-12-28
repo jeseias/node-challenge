@@ -5,8 +5,8 @@ import dotenv from 'dotenv'
 import path from 'path'
 import swaggerJsDocs from 'swagger-jsdoc'
 import swaggerUi from 'swagger-ui-express'
-import { postRoutes } from '@/models/api/post'
-import { swaggerOptions } from '@/helpers/docs/swagger-options'
+import { postRoutes } from './routes/api/post'
+import { swaggerOptions } from './helpers/docs/swagger-options'
 
 const app = express()
 
@@ -29,3 +29,4 @@ mongoose.connect(process.env.DATABASE_URL)
 app.listen(PORT, () => {
   console.log(`server running on PORT: ${PORT}`)
 })
+postRoutes

@@ -14,7 +14,7 @@ export class GetPostController implements Controller {
       const error = this.validation.validate(httpRequest.params)
       if (error) return badRequest(error)
       const { id } = httpRequest.params
-      const post = await this.loadPostById.load(id)
+      const post = await this.loadPostById.loadOne(id)
       if (!post) {
         return badRequest(new Error('Post not found'))
       }
