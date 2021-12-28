@@ -5,12 +5,8 @@ import { Validation } from '@/helpers/validators/validation-protocols'
 import { PostModel, AddPostModel } from '@/models/posts'
 import { AddPostController } from './add-post-controller'
 
-const makeFakePost = (): PostModel => ({
-  id: 'any_id',
-  title: 'any_title',
-  body: 'any_body',
-  tags: ['any_tag']
-})
+import { makeFakePost } from '../__tests__/mock-post'
+import { makeValidation } from '../__tests__/mock-validation'
 
 const makeFakeHttpRequest = (): HttpRequest => ({
   body: {
@@ -27,16 +23,6 @@ const makeAddPost = (): AddPost => {
     }
   }
   return new AddPostSpy()
-}
-
-const makeValidation = (): Validation => {
-  class ValidationSpy implements Validation {
-    validate (input: any): Error {
-      return null
-    }
-  }
-
-  return new ValidationSpy()
 }
 
 interface SutTypes {
@@ -57,6 +43,14 @@ const makeSut = (): SutTypes => {
 }
 
 describe('AddPostController', () => {
+  it('Should call Validation with correct values', async () => {
+    const { sut, validationSpy } = makeSut()
+    const validateSpy = jest.spyOn(validationSpy, 'validate')
+    const httpRequest = makeFakeHttpRequest()
+    await sut.handle(httpRequest)
+    expect(validateSpy).toHaveBeenCalledWith(httpRequest.body)
+  })
+
   it('Should return 400 bad request if Validation fails', async () => {
     const { sut, validationSpy } = makeSut()
     jest.spyOn(validationSpy, 'validate').mockReturnValueOnce(new Error('any_error'))
