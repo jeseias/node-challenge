@@ -22,3 +22,9 @@ export const map = (post: any): PostModel => {
 
 // const queryString = Post.find().skip((page - 1) * limit).limit(limit)
 // const posts = await queryString
+
+// const post = await Post.findByIdAndUpdate(
+//   { _id: id },
+//   {
+//     title, body, tags
+//   }, { new: true })
