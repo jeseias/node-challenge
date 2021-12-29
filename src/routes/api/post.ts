@@ -1,11 +1,11 @@
 import { Router } from 'express'
 import { adaptRoute } from '../../helpers/express/express-route-adapter'
-import { 
+import {
   makeAddPostController,
-  makeGetPostController, 
-  makeGetAllPostController, 
-  makeDeletePostController, 
-  makeUpdatePostController 
+  makeGetPostController,
+  makeGetAllPostController,
+  makeDeletePostController,
+  makeUpdatePostController
 } from '../../helpers/factories/posts'
 
 const postRoutes = Router()

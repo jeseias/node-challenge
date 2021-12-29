@@ -1,11 +1,11 @@
-import { Controller } from "../../controllers/controller-protocols"
-import { AddPostController } from "../../controllers/posts/add-post-controller/add-post-controller"
-import { GetPostController } from "../../controllers/posts/get-post-controller/get-post-controller"
-import { GetPostsController } from "../../controllers/posts/get-posts-controller/get-posts-controller"
-import { UpdatePostController } from "../../controllers/posts/update-post-controller/update-post-controller"
-import { DeletePostController } from "../../controllers/posts/delete-post-controller/delete-post-controller"
-import { PostMongoRepository } from "../../helpers/mongo/posts/post-mongo-repository"
-import { Validation } from "../validators/validation-protocols"
+import { Controller } from '../../controllers/controller-protocols'
+import { AddPostController } from '../../controllers/posts/add-post-controller/add-post-controller'
+import { GetPostController } from '../../controllers/posts/get-post-controller/get-post-controller'
+import { GetPostsController } from '../../controllers/posts/get-posts-controller/get-posts-controller'
+import { UpdatePostController } from '../../controllers/posts/update-post-controller/update-post-controller'
+import { DeletePostController } from '../../controllers/posts/delete-post-controller/delete-post-controller'
+import { PostMongoRepository } from '../../helpers/mongo/posts/post-mongo-repository'
+import { Validation } from '../validators/validation-protocols'
 import { RequiredFieldValidation, ValidationComposite } from '../../helpers/validators'
 
 export const makeAddPostController = (): Controller => {

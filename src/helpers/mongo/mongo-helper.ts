@@ -10,4 +10,4 @@ export const map = (post: any): PostModel => {
     })
 
   return mappedPost
-} 
+}

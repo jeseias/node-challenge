@@ -24,16 +24,27 @@ then install all dependencies :
  $ yarn 
 ```
 
+## MongoDB Setup
+
+create a `.config.env` file at the root of the application and the following variables
+
+```env
+DATABASE_URL=mongodb://127.0.0.1:27017/fuerza-node-challenge
+PORT=3333
+```
+
 Access the project folder and run the following command:
 
 ```bash
 npm run dev
 ```
 
-local development server should run on [http://localhost:3333/api](http://localhost:3333/api) on your browser to see the result.
+local development server should run on [http://localhost:3333](http://localhost:3333) on your browser to see the result.
 
 To run the tests, type the following command in the terminal:
 
 ```sh
 npm run test
 ``` 
+
+to open the swagger api docs visit [http://localhost:3333/api/docs](http://localhost:3333/api/docs)

@@ -5,8 +5,9 @@ import { LoadPosts } from '../../../helpers/protocols/load-posts'
 
 export class GetPostsController implements Controller {
   constructor (
-    private readonly loadPosts: LoadPosts,
+    private readonly loadPosts: LoadPosts
   ) {}
+
   async handle (httpRequest: HttpRequest): Promise<HttpResponse> {
     try {
       const { query } = httpRequest

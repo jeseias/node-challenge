@@ -1,9 +1,7 @@
-import { badRequest, ok } from '../../../helpers/http/http-helpers'
+import { ok } from '../../../helpers/http/http-helpers'
 import { HttpRequest } from '../../../helpers/http/http-protocols'
-import { Validation } from '../../../helpers/validators/validation-protocols'
 import { PostModel } from '../../../models/posts'
 import { makeFakePost } from '../__mocks__/mock-post'
-import { makeValidation } from '../__mocks__/mock-validation'
 import { GetPostsController } from './get-posts-controller'
 import { LoadPosts } from '../../../helpers/protocols/load-posts'
 
@@ -31,23 +29,23 @@ const makeSut = (): SutTypes => {
   const sut = new GetPostsController(loadPostsSpy)
   return {
     sut,
-    loadPostsSpy,
+    loadPostsSpy
   }
 }
 
-describe('GetPostsController', () => {  
+describe('GetPostsController', () => {
   it('Should call LoadPosts with correct values', async () => {
     const { sut, loadPostsSpy } = makeSut()
     const loadSpy = jest.spyOn(loadPostsSpy, 'loadAll')
     await sut.handle(makeFakeHttpRequest())
-    expect(loadSpy).toHaveBeenCalledWith(2,2)
+    expect(loadSpy).toHaveBeenCalledWith(2, 2)
   })
 
   it('Should default limit to 3 and page to 1 if they are not provided', async () => {
     const { sut, loadPostsSpy } = makeSut()
     const loadSpy = jest.spyOn(loadPostsSpy, 'loadAll')
     await sut.handle({ query: { } })
-    expect(loadSpy).toHaveBeenCalledWith(3,1)
+    expect(loadSpy).toHaveBeenCalledWith(3, 1)
   })
 
   it('Should call an array of Post on success', async () => {

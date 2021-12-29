@@ -7,7 +7,7 @@ import { RemovePostById } from '../../../helpers/protocols/remove-post-by-id'
 export class DeletePostController implements Controller {
   constructor (
     private readonly removePostById: RemovePostById,
-    private readonly validation: Validation,
+    private readonly validation: Validation
   ) {}
 
   async handle (httpRequest: HttpRequest): Promise<HttpResponse> {

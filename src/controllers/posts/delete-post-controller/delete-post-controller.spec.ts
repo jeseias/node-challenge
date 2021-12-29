@@ -38,7 +38,7 @@ const makeSut = (): SutTypes => {
   }
 }
 
-describe('DeletePostController', () => { 
+describe('DeletePostController', () => {
   it('Should call Validation with correct values', async () => {
     const { sut, validationSpy } = makeSut()
     const validateSpy = jest.spyOn(validationSpy, 'validate')
@@ -64,7 +64,7 @@ describe('DeletePostController', () => {
   it('Should return 400 if no Post is found with that id', async () => {
     const { sut, removePostByIdSpy } = makeSut()
     jest.spyOn(removePostByIdSpy, 'remove').mockReturnValueOnce(null)
-    const httpResponse =  await sut.handle(makeFakeHttpRequest())
+    const httpResponse = await sut.handle(makeFakeHttpRequest())
     expect(httpResponse).toEqual(badRequest(new Error('Post not found')))
   })
 })

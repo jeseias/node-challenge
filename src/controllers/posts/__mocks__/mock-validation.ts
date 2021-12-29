@@ -1,4 +1,4 @@
-import { Validation } from "../../../helpers/validators/validation-protocols"
+import { Validation } from '../../../helpers/validators/validation-protocols'
 
 export const makeValidation = (): Validation => {
   class ValidationSpy implements Validation {

@@ -7,8 +7,9 @@ import { LoadPostById } from '../../../helpers/protocols/load-post-by-id'
 export class GetPostController implements Controller {
   constructor (
     private readonly loadPostById: LoadPostById,
-    private readonly validation: Validation,
+    private readonly validation: Validation
   ) {}
+
   async handle (httpRequest: HttpRequest): Promise<HttpResponse> {
     try {
       const error = this.validation.validate(httpRequest.params)

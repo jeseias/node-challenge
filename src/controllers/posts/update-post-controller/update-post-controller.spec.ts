@@ -42,7 +42,7 @@ const makeSut = (): SutTypes => {
   }
 }
 
-describe('UpdatePostController', () => { 
+describe('UpdatePostController', () => {
   it('Should call Validation with correct values', async () => {
     const { sut, validationSpy } = makeSut()
     const validateSpy = jest.spyOn(validationSpy, 'validate')
@@ -67,7 +67,7 @@ describe('UpdatePostController', () => {
       {
         title: 'any_title',
         body: 'any_body',
-        tags: ['any_tag']  
+        tags: ['any_tag']
       }
     )
   })
@@ -75,7 +75,7 @@ describe('UpdatePostController', () => {
   it('Should return 400 if no Post is found with that id', async () => {
     const { sut, updatePostByIdSpy } = makeSut()
     jest.spyOn(updatePostByIdSpy, 'update').mockReturnValueOnce(null)
-    const httpResponse =  await sut.handle(makeFakeHttpRequest())
+    const httpResponse = await sut.handle(makeFakeHttpRequest())
     expect(httpResponse).toEqual(badRequest(new Error('Post not found')))
   })
 })

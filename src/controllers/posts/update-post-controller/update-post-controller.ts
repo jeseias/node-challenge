@@ -7,7 +7,7 @@ import { UpdatePostById } from '../../../helpers/protocols/update-post-by-id'
 export class UpdatePostController implements Controller {
   constructor (
     private readonly removePostById: UpdatePostById,
-    private readonly validation: Validation,
+    private readonly validation: Validation
   ) {}
 
   async handle (httpRequest: HttpRequest): Promise<HttpResponse> {
@@ -17,7 +17,7 @@ export class UpdatePostController implements Controller {
       if (error) return badRequest(error)
       const { title, body, tags } = httpRequest.body
       const post = await this.removePostById.update(
-        id, 
+        id,
         {
           title,
           body,
