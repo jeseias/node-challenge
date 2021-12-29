@@ -26,7 +26,8 @@ then install all dependencies :
 
 ## MongoDB Setup
 
-create a `.config.env` file at the root of the application and the following variables
+- create a `.config.env` file at the root of the application and the following variables.
+- ensure **mongod** is running in the background. So the **server** can connect to database.
 
 ```env
 DATABASE_URL=mongodb://127.0.0.1:27017/fuerza-node-challenge
