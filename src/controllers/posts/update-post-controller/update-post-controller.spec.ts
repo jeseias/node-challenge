@@ -1,4 +1,4 @@
-import { badRequest } from '../../../helpers/http/http-helpers'
+import { badRequest, ok } from '../../../helpers/http/http-helpers'
 import { HttpRequest } from '../../../helpers/http/http-protocols'
 import { UpdatePostById } from '../../../helpers/protocols/update-post-by-id'
 import { Validation } from '../../../helpers/validators/validation-protocols'
@@ -74,8 +74,19 @@ describe('UpdatePostController', () => {
 
   it('Should return 400 if no Post is found with that id', async () => {
     const { sut, updatePostByIdSpy } = makeSut()
-    jest.spyOn(updatePostByIdSpy, 'update').mockReturnValueOnce(null)
+    jest.spyOn(updatePostByIdSpy, 'update').mockReturnValueOnce(new Error('') as any)
     const httpResponse = await sut.handle(makeFakeHttpRequest())
     expect(httpResponse).toEqual(badRequest(new Error('Post not found')))
+  })
+  it('Should return 400 if no Post is found with that id', async () => {
+    const { sut, updatePostByIdSpy } = makeSut()
+    jest.spyOn(updatePostByIdSpy, 'update').mockReturnValueOnce(new Error('') as any)
+    const httpResponse = await sut.handle(makeFakeHttpRequest())
+    expect(httpResponse).toEqual(badRequest(new Error('Post not found')))
+  })
+  it('Should return 200 on success', async () => {
+    const { sut } = makeSut()
+    const httpResponse = await sut.handle(makeFakeHttpRequest())
+    expect(httpResponse).toEqual(ok(makeFakePost()))
   })
 })

@@ -1,4 +1,4 @@
-import { badRequest } from '../../../helpers/http/http-helpers'
+import { badRequest, deleted } from '../../../helpers/http/http-helpers'
 import { HttpRequest } from '../../../helpers/http/http-protocols'
 import { RemovePostById } from '../../../helpers/protocols/remove-post-by-id'
 import { Validation } from '../../../helpers/validators/validation-protocols'
@@ -63,8 +63,14 @@ describe('DeletePostController', () => {
 
   it('Should return 400 if no Post is found with that id', async () => {
     const { sut, removePostByIdSpy } = makeSut()
-    jest.spyOn(removePostByIdSpy, 'remove').mockReturnValueOnce(null)
+    jest.spyOn(removePostByIdSpy, 'remove').mockReturnValueOnce(new Error('') as any)
     const httpResponse = await sut.handle(makeFakeHttpRequest())
     expect(httpResponse).toEqual(badRequest(new Error('Post not found')))
+  })
+
+  it('Should return a 204 if on success', async () => {
+    const { sut } = makeSut()
+    const httpResponse = await sut.handle(makeFakeHttpRequest())
+    expect(httpResponse).toEqual(deleted())
   })
 })

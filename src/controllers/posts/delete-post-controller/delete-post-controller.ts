@@ -1,4 +1,4 @@
-import { serverError, ok, badRequest } from '../../../helpers/http/http-helpers'
+import { serverError, deleted, badRequest } from '../../../helpers/http/http-helpers'
 import { HttpRequest, HttpResponse } from '../../../helpers/http/http-protocols'
 import { Controller } from '../../../controllers/controller-protocols'
 import { Validation } from '../../../helpers/validators/validation-protocols'
@@ -16,13 +16,10 @@ export class DeletePostController implements Controller {
       if (error) return badRequest(error)
       const { id } = httpRequest.params
       const post = await this.removePostById.remove(id)
-      if (!post) {
+      if (!post.id) {
         return badRequest(new Error('Post not found'))
       }
-      return ok({
-        statusCode: 201,
-        body: 'Document deleted'
-      })
+      return deleted()
     } catch (error) {
       return serverError(error)
     }

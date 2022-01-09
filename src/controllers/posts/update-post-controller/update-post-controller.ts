@@ -24,7 +24,7 @@ export class UpdatePostController implements Controller {
           tags
         }
       )
-      if (!post) {
+      if (!post.id) {
         return badRequest(new Error('Post not found'))
       }
       return ok(post)

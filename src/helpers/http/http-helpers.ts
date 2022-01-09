@@ -16,6 +16,10 @@ export const created = (data: any): HttpResponse => ({
   body: data
 })
 
+export const deleted = (): HttpResponse => ({
+  statusCode: 204
+})
+
 export const serverError = (error: Error): HttpResponse => ({
   statusCode: 500,
   body: new ServerError(error.stack as string)

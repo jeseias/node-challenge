@@ -6,5 +6,7 @@ export interface HttpRequest {
 
 export interface HttpResponse {
   statusCode: number
+  status?: string
+  length?: number
   body?: any
 }
