@@ -14,7 +14,14 @@ export class GetPostsController implements Controller {
       const limit = parseInt(query.limit || 3)
       const page = parseInt(query.page || 1)
       const posts = await this.loadPosts.loadAll(limit, page)
-      return ok(posts)
+      return ok({
+        length: posts.length,
+        pagination: {
+          page,
+          limit
+        },
+        data: posts
+      })
     } catch (error) {
       return serverError(error)
     }

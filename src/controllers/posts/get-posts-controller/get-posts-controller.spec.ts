@@ -51,6 +51,12 @@ describe('GetPostsController', () => {
   it('Should call an array of Post on success', async () => {
     const { sut } = makeSut()
     const httpResponse = await sut.handle(makeFakeHttpRequest())
-    expect(httpResponse).toEqual(ok([makeFakePost()]))
+    expect(httpResponse).toEqual(ok({
+      length: 1,
+      pagination: {
+        page: 2, limit: 2
+      },
+      data: [makeFakePost()]
+    }))
   })
 })

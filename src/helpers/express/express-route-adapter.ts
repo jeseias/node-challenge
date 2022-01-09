@@ -12,15 +12,7 @@ export const adaptRoute = (controller: Controller) => {
 
     const httpResponse = await controller.handle(httpRequest)
     if (String(httpResponse.statusCode).startsWith('2')) {
-      res
-        .status(httpResponse.statusCode)
-        .header({
-          pagination: {
-            page: httpRequest.query.page,
-            limit: httpRequest.query.limit
-          }
-        })
-        .json(httpResponse.body)
+      res.status(httpResponse.statusCode).json(httpResponse.body)
     } else {
       res.status(httpResponse.statusCode).json({ error: httpResponse.body.message })
     }
