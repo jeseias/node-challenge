@@ -44,7 +44,6 @@ export class PostMongoRepository implements AddPost, LoadPosts, LoadPostById, Up
   }
 
   async remove (id: string): Promise<PostModel> {
-    console.log(id)
     const post = await Post.findByIdAndRemove(
       { _id: id },
       { new: true }

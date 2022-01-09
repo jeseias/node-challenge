@@ -1,4 +1,4 @@
-import { badRequest, ok, serverError } from '../../../helpers/http/http-helpers'
+import { badRequest, created, serverError } from '../../../helpers/http/http-helpers'
 import { HttpRequest } from '../../../helpers/http/http-protocols'
 import { AddPost } from '../../../helpers/protocols/add-post'
 import { Validation } from '../../../helpers/validators/validation-protocols'
@@ -81,6 +81,6 @@ describe('AddPostController', () => {
   it('Should return a Post if valid data is provided', async () => {
     const { sut } = makeSut()
     const httpResponse = await sut.handle(makeFakeHttpRequest())
-    expect(httpResponse).toEqual(ok(makeFakePost()))
+    expect(httpResponse).toEqual(created(makeFakePost()))
   })
 })

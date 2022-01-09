@@ -1,4 +1,4 @@
-import { badRequest, ok, serverError } from '../../../helpers/http/http-helpers'
+import { badRequest, created, serverError } from '../../../helpers/http/http-helpers'
 import { HttpRequest, HttpResponse } from '../../../helpers/http/http-protocols'
 import { Controller } from '../../../controllers/controller-protocols'
 import { AddPost } from '../../../helpers/protocols/add-post'
@@ -19,8 +19,9 @@ export class AddPostController implements Controller {
         title,
         body,
         tags
+
       })
-      return ok(post)
+      return created(post)
     } catch (error) {
       return serverError(error)
     }
