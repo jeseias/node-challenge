@@ -17,7 +17,8 @@ export const created = (data: any): HttpResponse => ({
 })
 
 export const deleted = (): HttpResponse => ({
-  statusCode: 204
+  statusCode: 202,
+  body: 'deleted successfully'
 })
 
 export const serverError = (error: Error): HttpResponse => ({

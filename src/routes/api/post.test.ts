@@ -113,11 +113,11 @@ describe('Post Routes', () => {
     })
   })
   describe('DELETE /api/posts/:id', () => {
-    it('Should return 204', async () => {
+    it('Should return 202', async () => {
       await Post.create(postData)
       await request(app)
         .delete(`/api/posts/${id}`)
-        .expect(204)
+        .expect(202)
     })
     it('Should return 400 if an invalid ID is provided', async () => {
       await Post.create(postData)

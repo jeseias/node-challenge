@@ -1,5 +1,5 @@
 {
   "watch": "./src",
-  "exec": "tsnd --exit-child ./src/app.ts",
+  "exec": "tsnd --exit-child ./src/server.ts",
   "ignoreWatch": ["node_modules", "src/**/*.spec.ts"]
 }

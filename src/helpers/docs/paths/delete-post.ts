@@ -21,22 +21,13 @@ export const deletePost =
       }
     ],
     responses: {
-      201: {
+      202: {
         description: 'Success',
         content: {
           'application/json:': {
             schema: {
-              type: 'object',
-              properties: {
-                statusCode: {
-                  type: 'string',
-                  example: 201
-                },
-                body: {
-                  type: 'string',
-                  example: 'Document deleted'
-                }
-              }
+              type: 'string',
+              example: 'deleted successfully'
             }
           }
         }

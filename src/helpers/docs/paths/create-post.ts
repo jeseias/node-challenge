@@ -19,7 +19,7 @@ export const createPost: Paths =
         }
       },
       responses: {
-        200: {
+        201: {
           description: 'Success',
           content: {
             'application/json:': {
