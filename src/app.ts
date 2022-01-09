@@ -11,6 +11,7 @@ import rateLimit from 'express-rate-limit'
 import mongoSanitize from 'express-mongo-sanitize'
 import xXssProtection from 'x-xss-protection'
 import hpp from 'hpp'
+import compression from 'compression'
 
 const app = express()
 
@@ -42,6 +43,8 @@ app.use(
     ]
   })
 )
+
+app.use(compression())
 
 const swaggerDocs = swaggerJsDocs(swaggerOptions)
 app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs))
