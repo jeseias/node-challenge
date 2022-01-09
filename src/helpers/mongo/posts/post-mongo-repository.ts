@@ -5,7 +5,7 @@ import { UpdatePostById } from '../../protocols/update-post-by-id'
 import { LoadPosts } from '../../protocols/load-posts'
 import { AddPostModel, PostModel, Post } from '../../../models/posts'
 import { v4 as uuid } from 'uuid'
-import * as MongoHelper from '../mongo-helper'
+import { map } from '../mongo-helper'
 
 export class PostMongoRepository implements AddPost, LoadPosts, LoadPostById, UpdatePostById, RemovePostById {
   async add (addPostModel: AddPostModel): Promise<PostModel> {
@@ -17,18 +17,18 @@ export class PostMongoRepository implements AddPost, LoadPosts, LoadPostById, Up
       tags
     })
     const post = posts[0]
-    return MongoHelper.map(post)
+    return map(post)
   }
 
   async loadOne (id: string): Promise<PostModel> {
     const post = await Post.findById({ _id: id })
-    return MongoHelper.map(post)
+    return map(post)
   }
 
   async loadAll (limit: number, page: number): Promise<PostModel[]> {
     const queryString = Post.find().skip((page - 1) * limit).limit(limit)
     const posts = await queryString
-    return posts.map(post => MongoHelper.map(post))
+    return posts.map(post => map(post))
   }
 
   async update (id: string, data: AddPostModel): Promise<PostModel> {
@@ -40,7 +40,7 @@ export class PostMongoRepository implements AddPost, LoadPosts, LoadPostById, Up
       },
       { new: true }
     )
-    return MongoHelper.map(post)
+    return map(post)
   }
 
   async remove (id: string): Promise<PostModel> {
@@ -49,6 +49,6 @@ export class PostMongoRepository implements AddPost, LoadPosts, LoadPostById, Up
       { _id: id },
       { new: true }
     )
-    return MongoHelper.map(post)
+    return map(post)
   }
 }
